@@ -17,18 +17,18 @@ class TestImportUtils(unittest.TestCase):
 
     def testImportFuncFromFile(self):
         folder = os.path.join(os.path.dirname(__file__), 'testdata')
-        testfile = os.path.join(folder, 'test_import.py')
-        fn = import_utils.import_func_from_file(testfile, 'test_fn')
+        testfile = os.path.join(folder, 'import_file.py')
+        fn = import_utils.import_func_from_file(testfile, 'import_fn')
         self.assertEqual(10, fn([1, 2, 3, 4]))
 
     def testImportFuncFromFileMissingFile(self):
         folder = os.path.join(os.path.dirname(__file__), 'testdata')
         testfile = os.path.join(folder, 'not_exist_file.py')
         with self.assertRaises(ImportError):
-            import_utils.import_func_from_file(testfile, 'test_fn')
+            import_utils.import_func_from_file(testfile, 'import_fn')
 
     def testImportFuncFromFileMissingFunction(self):
         folder = os.path.join(os.path.dirname(__file__), 'testdata')
-        testfile = os.path.join(folder, 'test_import.py')
+        testfile = os.path.join(folder, 'import_file.py')
         with self.assertRaises(AttributeError):
             import_utils.import_func_from_file(testfile, 'not_exist_fn')

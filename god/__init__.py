@@ -1,1 +1,3 @@
-from .core import hmm
+from god import utils
+
+__all__ = ["utils"]

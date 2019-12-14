@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-'''
-@Description: Tensorflow test things
-@Author: Li Yanzhe
-@Date: 2019-12-05 17:26:13
-@LastEditors: Li Yanzhe
-@LastEditTime: 2019-12-05 17:38:05
-@Copyright (c) 2019 Senses Intelligence
-'''
+###
+# Description: Tensorflow Test
+# Author: Li Yanzhe
+# Date: 2019-12-14 21:15:40
+# LastEditors: Li Yanzhe
+# LastEditTime: 2019-12-14 21:16:01
+# Copyright (c) 2019
+###
 import tensorflow as tf
 
 

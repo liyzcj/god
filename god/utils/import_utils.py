@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-'''
-@Description: Import Utils
-@Author: Li Yanzhe
-@Date: 2019-12-04 20:53:04
-@LastEditors: Li Yanzhe
-@LastEditTime: 2019-12-05 11:40:57
-@Copyright (c) 2019 Senses Intelligence
-'''
+###
+# Description: import utils
+# Author: Li Yanzhe
+# Date: 2019-12-04 20:53:04
+# LastEditors: Li Yanzhe
+# LastEditTime: 2019-12-14 21:17:00
+# Copyright (c) 2019
+###
+
 import importlib.util
 from typing import Text, Callable
 

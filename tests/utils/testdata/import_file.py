@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-'''
-@Description: Test import_func_from_file
-@Author: Li Yanzhe
-@Date: 2019-12-05 11:21:25
-@LastEditors: Li Yanzhe
-@LastEditTime: 2019-12-05 11:22:47
-@Copyright (c) 2019 Senses Intelligence
-'''
+###
+# Description: Helper for test import utils
+# Author: Li Yanzhe
+# Date: 2019-12-05 20:27:08
+# LastEditors: Li Yanzhe
+# LastEditTime: 2019-12-14 21:18:12
+# Copyright (c) 2019
+###
 
 
 def import_fn(inputs):

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-'''
-@Description: file utils
-@Author: Li Yanzhe
-@Date: 2019-12-14 00:31:13
-@LastEditors: Li Yanzhe
-@LastEditTime: 2019-12-14 01:38:41
-@Copyright (c) 2019 Senses Intelligence
-'''
+###
+# Description: file utils
+# Author: Li Yanzhe
+# Date: 2019-12-14 00:31:13
+# LastEditors: Li Yanzhe
+# LastEditTime: 2019-12-14 21:16:38
+# Copyright (c) 2019
+###
+
 import os
 import tempfile
 

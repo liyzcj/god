@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-'''
-@Description: Test file utils
-@Author: Li Yanzhe
-@Date: 2019-12-14 01:07:03
-@LastEditors: Li Yanzhe
-@LastEditTime: 2019-12-14 01:32:57
-@Copyright (c) 2019 Senses Intelligence
-'''
+###
+# Description: Test file_utils.py
+# Author: Li Yanzhe
+# Date: 2019-12-14 01:07:03
+# LastEditors: Li Yanzhe
+# LastEditTime: 2019-12-14 21:18:39
+# Copyright (c) 2019
+###
+
 import os
 import unittest
 

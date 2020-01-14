@@ -10,6 +10,7 @@
 
 import os
 import tempfile
+import shutil
 
 
 class TempDir(object):
@@ -28,13 +29,11 @@ class TempDir(object):
         """
         self._dir = None  # keep current dir if chdr
         self._path = None  # tempdir path
-        self.__temp_dir_obj = None  # tempfile.TemporaryDirectory
         self._chdr = chdr
         self._remove = remove_on_exit
 
     def __enter__(self):
-        self.__temp_dir_obj = tempfile.TemporaryDirectory()
-        self._path = os.path.abspath(self.__temp_dir_obj.name)
+        self._path = os.path.abspath(tempfile.mkdtemp())
         assert os.path.exists(self._path)
         if self._chdr:
             self._dir = os.path.abspath(os.getcwd())
@@ -46,7 +45,7 @@ class TempDir(object):
             os.chdir(self._dir)
             self._dir = None
         if self._remove and os.path.exists(self._path):
-            self.__temp_dir_obj.cleanup()
+            shutil.rmtree(self._path)
 
         assert not self._remove or not os.path.exists(self._path)
         assert os.path.exists(os.getcwd())

@@ -1,2 +1,3 @@
-nose
+nose2
 sphinx
+tensorflow==2.0.1

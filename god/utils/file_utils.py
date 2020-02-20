@@ -1,55 +1,45 @@
-# -*- coding: utf-8 -*-
-###
-# Description: file utils
-# Author: Li Yanzhe
-# Date: 2019-12-14 00:31:13
-# LastEditors: Li Yanzhe
-# LastEditTime: 2019-12-14 21:16:38
-# Copyright (c) 2019
-###
+"""A Module about file utilities."""
 
 import os
-import tempfile
-import shutil
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 
 class TempDir(object):
-    """ Temporary directory """
+    """
+    Similar with TemporaryDirectory, except:
 
-    def __init__(self, chdr=False, remove_on_exit=True):
+    * May chdir when use `with` statement
+    * yield variable is a Path object when use `with` statement
+    * `name` attribute return a Path object
+
+    """
+
+    def __init__(self, cd=False):
         """
-        Construct TempDir as a context.
+        Create an temporary directory.
 
-        Parameters
-        ----------
-        chdr : bool, optional
-            change dir to temporary path, by default False
-        remove_on_exit : bool, optional
-            remove the tempdir when exiting, by default True
+        :param cd: change to temporay dir or not, defaults to False
+        :type cd: bool, optional
         """
         self._dir = None  # keep current dir if chdr
-        self._path = None  # tempdir path
-        self._chdr = chdr
-        self._remove = remove_on_exit
+        self._tmp_obj = TemporaryDirectory()
+        self._cd = cd
+        self.name = Path(self._tmp_obj.name).absolute()
 
     def __enter__(self):
-        self._path = os.path.abspath(tempfile.mkdtemp())
-        assert os.path.exists(self._path)
-        if self._chdr:
-            self._dir = os.path.abspath(os.getcwd())
-            os.chdir(self._path)
-        return self
+        if self._cd:
+            self._dir = Path.cwd().absolute()
+            os.chdir(self.name)
+            return Path('./').absolute()
+        return self.name
 
     def __exit__(self, tp, val, traceback):
-        if self._chdr and self._dir:
+        if self._cd:
             os.chdir(self._dir)
-            self._dir = None
-        if self._remove and os.path.exists(self._path):
-            shutil.rmtree(self._path)
 
-        assert not self._remove or not os.path.exists(self._path)
-        assert os.path.exists(os.getcwd())
-
-    def path(self, *path):
-        return os.path.join("./", *path) \
-            if self._chdr else os.path.join(self._path, *path)
+    def cleanup(self):
+        """
+        Remove the temporary director.
+        """
+        self._tmp_obj.cleanup()

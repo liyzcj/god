@@ -14,7 +14,7 @@ def argument(*name_or_flags, **kwargs):
     return (list(name_or_flags), kwargs)
 
 
-def subcommand(args=[], parent=subparsers):
+def subcommand(args=[], extend_args_func=None, parent=subparsers):
     """Decorator to define a new subcommand in a sanity-preserving way.
     The function will be stored in the ``func`` variable when the parser
     parses arguments so that it can be called directly like so::
@@ -31,13 +31,29 @@ def subcommand(args=[], parent=subparsers):
         parser = parent.add_parser(func.__name__, description=func.__doc__)
         for arg in args:
             parser.add_argument(*arg[0], **arg[1])
+        if extend_args_func:
+            extend_args_func(parser)
         parser.set_defaults(func=func)
     return decorator
 
 
 @subcommand([argument("name", help="hello, name!")])
-def hello(args):
-    print("Hello, " + args.name + '!')
+def hello(name):
+    print("Hello, " + name + '!')
+
+
+def conflict_group(parser):
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--foo", action="store_true")
+    group.add_argument("--bar", type=str)
+
+
+@subcommand(extend_args_func=conflict_group)
+def test(foo, bar):
+    """
+    This is test command for extend args function.
+    """
+    print(foo, bar)
 
 
 def main():
@@ -45,7 +61,11 @@ def main():
     if args.subcommand is None:
         cli.print_help()
     else:
-        args.func(args)
+        kwargs = {}
+        for k, v in args._get_kwargs():
+            if k not in ['func', 'subcommand']:
+                kwargs[k] = v
+        args.func(**kwargs)
 
 
 if __name__ == "__main__":

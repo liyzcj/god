@@ -34,6 +34,8 @@ def subcommand(args=[], extend_args_func=None, parent=subparsers):
         if extend_args_func:
             extend_args_func(parser)
         parser.set_defaults(func=func)
+        # return parser for multi-level subcommand, see test2
+        return parser
     return decorator
 
 
@@ -54,6 +56,21 @@ def test(foo, bar):
     This is test command for extend args function.
     """
     print(foo, bar)
+
+
+# multi-level subcommand
+@subcommand()
+def test2():
+    pass
+
+
+test2_subparser = test2.add_subparsers(dest='subcommand')
+
+
+@subcommand([argument('--foo')], parent=test2_subparser)
+def test2sub(foo):
+    print("this is subcommand for test2.")
+    print(foo)
 
 
 def main():
